@@ -535,12 +535,12 @@ namespace Exiv2 {
 
     void RiffVideo::printStructure(std::ostream& out, PrintStructureOption option, int depth) {
         if (io_->open() != 0) {
-            throw Error(kerDataSourceOpenFailed, io_->path(), strError());
+            throw Error(ErrorCode::kerDataSourceOpenFailed, io_->path(), strError());
         }
         // Ensure this is the correct image type
         if (!isRiffType(*io_, true)) {
-            if (io_->error() || io_->eof()) throw Error(kerFailedToReadImageData);
-            throw Error(kerNotAnImage, "RIFF");
+            if (io_->error() || io_->eof()) throw Error(ErrorCode::kerFailedToReadImageData);
+            throw Error(ErrorCode::kerNotAnImage, "RIFF");
         }
 
         bool bPrint  = option==kpsBasic || option==kpsRecursive;
@@ -602,12 +602,12 @@ namespace Exiv2 {
 
     void RiffVideo::readMetadata()
     {
-        if (io_->open() != 0) throw Error(kerDataSourceOpenFailed, io_->path(), strError());
+        if (io_->open() != 0) throw Error(ErrorCode::kerDataSourceOpenFailed, io_->path(), strError());
 
         // Ensure that this is the correct image type
         if (!isRiffType(*io_, false)) {
-            if (io_->error() || io_->eof()) throw Error(kerFailedToReadImageData);
-            throw Error(kerNotAnImage, "RIFF");
+            if (io_->error() || io_->eof()) throw Error(ErrorCode::kerFailedToReadImageData);
+            throw Error(ErrorCode::kerNotAnImage, "RIFF");
         }
 
         IoCloser closer(*io_);

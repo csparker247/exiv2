@@ -484,12 +484,12 @@ namespace Exiv2 {
 
     void MatroskaVideo::readMetadata()
     {
-        if (io_->open() != 0) throw Error(kerDataSourceOpenFailed, io_->path(), strError());
+        if (io_->open() != 0) throw Error(ErrorCode::kerDataSourceOpenFailed, io_->path(), strError());
 
         // Ensure that this is the correct image type
         if (!isMkvType(*io_, false)) {
-            if (io_->error() || io_->eof()) throw Error(kerFailedToReadImageData);
-            throw Error(kerNotAnImage, "Matroska");
+            if (io_->error() || io_->eof()) throw Error(ErrorCode::kerFailedToReadImageData);
+            throw Error(ErrorCode::kerNotAnImage, "Matroska");
         }
 
         IoCloser closer(*io_);
